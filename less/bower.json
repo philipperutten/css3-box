@@ -1,8 +1,0 @@
-{
-  "name": "css3-box-mixins",
-  "version": "0.0.1",
-  "main": ["./css3-box-mixins.js"],
-  "dependencies": {
-    "less": ">=1.4.2"
-  }
-}
