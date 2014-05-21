@@ -1,0 +1,24 @@
+@import "style-mixins.less";
+@import "layout.less";
+
+
+/* ------------------------------------- TEMPORARY ----------------------------------- */
+
+	.fixed-layer{
+		-webkit-box-shadow:0 0 10px rgba(0,0,0,.5);
+		background:#eee;
+	}
+	
+
+
+
+	
+/* --------------------------------------------- FIXES --------------------------------------------- */
+
+	div  {position:relative}	// help absolute positioning
+	body {overflow:hidden}		// disables bounce on mac
+
+	#app-nav .navbar{			// reset bootstrap navbar radius and margin
+		margin-bottom:0px;
+		.navbar-inner{ border-radius:0; }
+	}

@@ -1,0 +1,100 @@
+/*
+	CCS3 Box Model Mixins
+	By Philippe Rutten
+	
+	--------
+	Contains
+	--------
+	
+		.box-pack(@x)	 packs box's child elements		start|end|center|justify
+		.box-align(@x)	 aligns box's child elements	start|end|center|baseline|stretch
+	    .box-orient(@x)	 orients box's child elements	horizontal|vertical|inline-axis|block-axis|inherit
+	    .box-flex(@x:1)  takes share of rest space		any integer (default 1)
+
+	    .box(@pack:justify;@align:stretch)
+		
+		.hbox			box with horizontally oriented children
+		.vbox			box with vertically oriented children
+		
+		.vscrollbox		vertical scroll
+		.hscrollbox		horizontal scroll
+		.scrollbox		scroll both
+		
+	    
+	-----
+	To Do
+	-----
+	
+	 - box-direction		normal|reverse|inherit
+	 - box-ordinal-group	any integer (lower nr. goes first)
+	 - box-sizing			content-box|border-box|initial|inherit
+*/
+
+
+	// pack the child elements in a box -- start|end|center|justify
+	.box-pack(@x){
+         -webkit-box-pack : @x;
+            -moz-box-pack : @x;
+            -ms-flex-pack : @x;
+                 box-pack : @x;
+    }
+
+	// align the child elements in a box -- start|end|center|baseline|stretch
+    .box-align(@x){
+        -webkit-box-align : @x;
+           -moz-box-align : @x;
+           -ms-flex-align : @x;
+                box-align : @x;
+    }
+
+	// set the orientation of child elements in a box -- horizontal|vertical|inline-axis|block-axis|inherit
+    .box-orient(@x){
+       -webkit-box-orient : @x;
+          -moz-box-orient : @x;
+          -ms-flex-orient : @x;
+               box-orient : @x;
+    }
+
+	// take x share of any remaining space -- any integer (default 1)
+    .box-flex(@x:1){
+         -webkit-box-flex : @x;
+            -moz-box-flex : @x;
+            -ms-flex-flex : @x;
+                 box-flex : @x;
+    }
+
+
+
+	// define an element as a CSS3 box with properties like orient, pack, align...
+    .box(@pack:justify;@align:stretch){
+
+        display :         box;
+        display :    -moz-box;
+        display : -ms-flexbox;
+        display : -webkit-box;
+
+        .box-pack  ( @pack  );
+        .box-align ( @align );
+    }
+
+	.hbox{
+		.box;
+		.box-orient(horizontal);
+	}
+	.vbox{
+		.box;
+		.box-orient(vertical);
+	}
+	
+	.vscrollbox{
+		overflow-y:scroll;
+		overflow-x:hidden;
+	}
+	.hscrollbox{
+		overflow-y:hidden;
+		overflow-x:scroll;
+	}
+	.scrollbox{
+		overflow-y:scroll;
+		overflow-x:scroll;
+	}
