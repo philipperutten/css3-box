@@ -1,0 +1,89 @@
+/* 
+	App 'scaffold' based on the CSS3 Box Model & Layer Mixins
+*/	
+	
+	@import "../../css3-box-mixins.less";
+	@import "../../layer-mixins.less";
+	
+
+	
+	
+//--------------defaults--------------------------
+	
+	@nav-width		: 85%;
+	@nav-max-width	: 250px;
+	
+
+
+//--------------Scaffold--------------------------
+	
+	div  { position:relative	}	// help absolute positioning
+	body { overflow:hidden		}	// disables bounce on mac
+	
+	#nav-layer{		.fixed-layer;
+					.vscrollbox;
+					width:@nav-width;
+					max-width:@nav-max-width;
+					}
+
+	#main-layer{	.fixed-layer;
+					.vbox;
+					width:100%;
+					-webkit-transition: all .3s;
+					}
+
+	#app-nav,
+	#app-nav-left,
+	#app-nav-right{	.hbox;
+					}
+	#app-nav-title{	.layer;
+					.hbox(@pack:center;@align:center);
+					}
+	
+	#app-screen{	.box-flex; .vscrollbox }
+	
+		
+	@media all and (min-width:1000px){
+		#nav-layer	{	width:@nav-max-width			}
+		#main-layer	{	left:@nav-max-width;width:auto	}
+
+		#app-nav-left	{	display:none				}
+		#app-nav		{	.box-pack(end)				}
+		#app-nav-title	{	.box-pack(start)			}
+	}
+	
+	
+/*--------------Adapted Bootstrap2 Modal-----------------
+
+	- Flexible hight to adapt to content; up to a maximum, where the
+	 	modal body becomes scrollable
+	- on smaller screens, dialog takes up full width and height
+*/
+	
+	@threshold:580px;
+	
+	.modal{
+		.fixed-layer(@zIndex:1050);
+		.vbox();
+	
+		.modal-body{
+			.box-flex;
+		}
+		@media all and (max-width:@threshold){
+			width			: auto;
+			margin-left		: 0!important;
+			border			: none;
+			border-radius	: 0;
+			-webkit-border-radius:0;
+		}
+		@media all and (min-width:@threshold){
+			width			: 570px;
+			top				: 10%;
+			bottom			: auto;
+			max-height		: 85%;
+			margin-top		: auto !important;
+			margin-right	: auto!important;
+			margin-bottom	: auto!important;
+			margin-left		: auto!important;
+		}
+	}

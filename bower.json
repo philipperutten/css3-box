@@ -6,7 +6,7 @@
     "Philippe <philippe.rutten@gmail.com>"
   ],
   "description": "A set of LESS mixins based on the CSS3 box model",
-  "main": "./less/css3-box-mixins.less",
+  "main": "./css3-box-mixins.less",
   "moduleType": [
     "globals"
   ],
@@ -23,8 +23,9 @@
   "license": "MIT",
   "ignore": [
     "**/.*",
-    "node_modules",
     "bower_components",
+    "components",
+	"demo",
     "test",
     "tests"
   ]

@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <title>CSS3 Layout Skeleton</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="VO ACD">
+    
+	<!-- styles -->
+    <link rel="stylesheet" href="components/bootstrap/bootstrap.css" />
+    <link rel="stylesheet/less" href="less/layout.less" type="text/css"/>
+    <link rel="stylesheet/less" href="less/style.less" type="text/css"/>
+    <script type="text/javascript" src="components/less.js/less-1.6.2.min.js"></script>
+
+</head>
+
+<body>
+	<div id='nav-layer'>
+		<ul class="nav nav-list">
+			<li><a href='#'>Menu option 1</a></li>
+			<li><a href='#'>Menu option 2</a></li>
+			<li><a href='#'>Menu option 3</a></li>
+			<li><a href='#'>Menu option 4</a></li>
+			<li><a href='#'>Menu option 5</a></li>
+			<li><a href='#'>Menu option 6</a></li>
+			<li><a href='#'>Menu option 7</a></li>
+			<li><a href='#'>Menu option 8</a></li>
+			<li><a href='#'>Menu option 9</a></li>
+        </ul>
+	</div>
+	
+	<div id='main-layer'>
+
+		<div id='app-nav' class='navbar navbar-default'>
+			<div id='app-nav-title'>
+				CSS3 Box Model Demo
+			</div>
+			<div id='app-nav-left'>
+				<button class='btn' id='menu-toggle'>menu</button>
+			</div>
+			<div id='app-nav-right'>
+				<button class='btn' href="#myModal" role="button" data-toggle="modal">Dialog...</button>
+			</div>
+		</div><!-- #app-nav -->
+
+		<div id='app-screen'>
+			<p>This is the main content area.</p>
+			<p>On large screens the navigation menu is shown in a panel on the left.</p>
+			<p>On smaller screens (mobile) the navigation is hidden, but the top navigation bar contains a button that reveals the navigation in a hidden panel.</p>
+			<p>Both the navigation menu and this text are contained in vertical scrollboxes.
+				This means that if they don't fit on the screen, they will be scrollable--independent of each other</p>
+		</div><!-- #app-screen -->
+
+	</div><!-- #main-layer -->
+	
+	<div id="myModal" class="modal" style='display:none' role="dialog">
+	  <div class="modal-header">
+	    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+	    <h3 id="myModalLabel">Dialog</h3>
+	  </div>
+	  <div class="modal-body">
+		<p>This modal dialog is adapted from the standard Bootstrap modal.</p>
+		<p>The main changes are:
+			<ol>
+				<li>The body area will size in height to accommodate its content--as long as it fits on the screen, beyond which the body area will become scrollable</li>
+				<li>On smaller screens, the dialog will take up the full width and height of the screen to let no space go wasted.
+				</li>
+			</ol>
+		</p>
+	  </div>
+	  <div class="modal-footer">
+	    <button class="btn" data-dismiss="modal" aria-hidden="true">Cancel</button>
+	    <button class="btn btn-primary">Submit</button>
+	  </div>
+	</div>
+
+    <!-- Scripts -->
+    <script src="components/jquery/jquery.js"></script>
+    <script src="components/bootstrap/bootstrap-modal.js"></script>
+    <script src="js/main.js"></script>
+
+</body>
+</html>

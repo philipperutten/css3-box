@@ -1,0 +1,53 @@
+/*
+	Layer Mixins
+	By Philippe Rutten
+	
+	--------
+	Contains
+	--------
+		
+		.layer				layer that takes the full width and hight of its parent
+		.fixed-layer		layer that takes the full width and height of the screen
+		.layer-left			layer stuck to the left side of the parent (full height)
+		.layer-left-top		layer stuck to the left top corner
+		.layer-left-bottom	layer stuck to the left bottom corner
+		.layer-right		layer stuck to the right side of the parent (full height)
+		.layer-right-top	layer stuck to the right top corner
+		.layer-right-bottom	layer stuck to the right bottom corner
+		
+*/
+
+	//	a layer that takes up the full width and height of the parent element
+	//	make sure the parent element has position:fixed|absolute|relative
+	//
+	.layer(@position:absolute;@top:0;@left:0;@right:0;@bottom:0;@zIndex:auto){
+		position: @position;
+		top     : @top;
+		left    : @left;
+		right   : @right;
+		bottom  : @bottom;
+		z-index : @zIndex;
+	}
+
+	//	a layer that takes up the full width and height of the screen
+	//
+	.fixed-layer(@top:0;@left:0;@right:0;@bottom:0;@zIndex:auto){
+		position: fixed;
+		top     : @top;
+		left    : @left;
+		right   : @right;
+		bottom  : @bottom;
+		z-index : @zIndex;
+	}
+
+	//	a layer stuck to the left side of the parent element
+	//
+	.layer-left			{	.layer(@right:auto)					}
+	.layer-left-top		{	.layer(@right:auto;@bottom:auto)	}
+	.layer-left-bottom	{	.layer(@right:auto;@top:auto)		}
+
+	//	a layer stuck to the right side of the parent element
+	//
+	.layer-right		{	.layer(@left:auto)					}
+	.layer-right-top	{	.layer(@left:auto;@bottom:auto)		}
+	.layer-right-bottom	{	.layer(@left:auto;@top:auto)		}
