@@ -1,0 +1,8 @@
+{
+  "name": "css3-box-demo",
+  "dependencies": {
+    "bootstrap": "~3.0",
+    "less.js": "~1.6",
+    "font-awesome": "~4.0"
+  }
+}

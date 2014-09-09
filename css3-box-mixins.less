@@ -81,15 +81,16 @@
 	.hbox(@pack:justify;@align:stretch){	.box(@pack:@pack;@align:@align;@orient:horizontal)	}
 	.vbox(@pack:justify;@align:stretch){	.box(@pack:@pack;@align:@align;@orient:vertical)	}
 	
-	.vscrollbox{
+	.scrollbox,
+	.vscrollbox,
+	.hscrollbox{
+		.box-flex;
 		overflow-y:scroll;
+		overflow-x:scroll;
+	}
+	.vscrollbox{
 		overflow-x:hidden;
 	}
 	.hscrollbox{
 		overflow-y:hidden;
-		overflow-x:scroll;
-	}
-	.scrollbox{
-		overflow-y:scroll;
-		overflow-x:scroll;
 	}
