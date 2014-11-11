@@ -1,96 +1,180 @@
 /*
-	CCS3 Box Model Mixins
+	LESS mixins based on CCS3 Flexbox draft
 	By Philippe Rutten
 	
-	--------
-	Contains
-	--------
+	Purpose: determine the layout of multiple elements in a same container
+	This includes:
+	- the direction/orientation in which they are laid out
+	- the way they are grouped/spaced
+	- the way they align with the container and with each other
 	
-		.box-pack(@x)	 packs box's child elements		start|end|center|justify
-		.box-align(@x)	 aligns box's child elements	start|end|center|baseline|stretch
-	    .box-orient(@x)	 orients box's child elements	horizontal|vertical|inline-axis|block-axis|inherit
-	    .box-flex(@x:1)  takes share of rest space		any integer (default 1)
-
-	    .box(@pack:justify;@align:stretch)
-		
-		.hbox			box with horizontally oriented children
-		.vbox			box with vertically oriented children
-		
-		.vscrollbox		vertical scroll
-		.hscrollbox		horizontal scroll
-		.scrollbox		scroll both
-		
-	    
-	-----
-	To Do
-	-----
+	The CSS standard is still in draft stage and has undergone several transformations already
+	with different property and parameter naming.
+	The principles however remain the same.
+	These mixins are based on the latest version to date (11-11-2014). 
 	
-	 - box-direction		normal|reverse|inherit
-	 - box-ordinal-group	any integer (lower nr. goes first)
-	 - box-sizing			content-box|border-box|initial|inherit
-*/
-
-
-	// pack the child elements in a box -- start|end|center|justify
-	.box-pack(@x){
-         -webkit-box-pack : @x;
-            -moz-box-pack : @x;
-            -ms-flex-pack : @x;
-                 box-pack : @x;
-    }
-
-	// align the child elements in a box -- start|end|center|baseline|stretch
-    .box-align(@x){
-        -webkit-box-align : @x;
-           -moz-box-align : @x;
-           -ms-flex-align : @x;
-                box-align : @x;
-    }
-
-	// set the orientation of child elements in a box -- horizontal|vertical|inline-axis|block-axis|inherit
-    .box-orient(@x){
-       -webkit-box-orient : @x;
-          -moz-box-orient : @x;
-          -ms-flex-orient : @x;
-               box-orient : @x;
-    }
-
-	// take x share of any remaining space -- any integer (default 1)
-    .box-flex(@x:1){
-         -webkit-box-flex : @x;
-            -moz-box-flex : @x;
-            -ms-flex-flex : @x;
-                 box-flex : @x;
-    }
-
-
-
-	// define an element as a CSS3 box with properties like orient, pack, align...
-    .box(@pack:justify;@align:stretch;@orient){
-
-        display :         box;
-        display :    -moz-box;
-        display : -ms-flexbox;
-        display : -webkit-box;
-
-        .box-pack  	( @pack   );
-        .box-align 	( @align  );
-        .box-orient ( @orient );
-    }
-
-	.hbox(@pack:justify;@align:stretch){	.box(@pack:@pack;@align:@align;@orient:horizontal)	}
-	.vbox(@pack:justify;@align:stretch){	.box(@pack:@pack;@align:@align;@orient:vertical)	}
+	Included are:
 	
-	.scrollbox,
-	.vscrollbox,
-	.hscrollbox{
-		.box-flex;
-		overflow-y:scroll;
-		overflow-x:scroll;
+	FLEX-CONTAINER PROPERTIES:
+	 	orientation	: flex-direction 	-- row | row-reverse | column | column-reverse
+		wrapping	: flex-wrap 		-- nowrap | wrap | wrap-reverse
+		packing		: justify-content	-- flex-start | flex-end | center | space-between | space-around
+		alignment	: align-items		-- flex-start | flex-end | center | stretch | baseline
+
+	FLEX-CHILDREN PROPERTIES:
+		growing to use excess space	: flex-grow		-- number	= share of excess container space
+		shrinking to limited space	: flex-shrink	-- number	= share of shortage container space
+
+
+	Not included are the following child-properties:
+	
+		order			-- number	= order number among siblings
+		flex-basis		-- size		= base-size
+		align-self		-- auto | flex-start | flex-end | center | stretch | baseline
+		
+
+	Source:		http://css-tricks.com/snippets/css/a-guide-to-flexbox/
+	Compliance: Tested on Chrome v38, Firefox 33, Safari 8
+	Note:		To date, Safari requires the -webkit- prefix
+	
+	*/
+	
+	
+	
+	
+	.orient(@x)	{			 flex-direction	: @x;
+					 -webkit-flex-direction	: @x; }
+
+	.wrap(@x)	{				  flex-wrap	: @x;
+					 	  -webkit-flex-wrap	: @x; }
+
+	.pack(@x)	{			justify-content	: @x;	
+					-webkit-justify-content	: @x; }
+
+	.align(@x)	{				align-items	: @x;	
+						-webkit-align-items	: @x; }
+
+	.shrink(@x:1){				flex-shrink	: @x;
+						-webkit-flex-shrink	: @x; }
+
+	.grow(@x:1)	{				  flex-grow	: @x;
+						  -webkit-flex-grow	: @x; }
+	
+	
+	
+	.flexbox()	{	display	: 		  flex;
+					display	: -webkit-flex;
+					> * { .grow(0); .shrink(0); }
+				}
+
+	@default-pack	: flex-start;
+	@default-align	: stretch;
+	@default-wrap	: nowrap;
+	
+	.vlayout(@pack:@default-pack,@align:@default-align,@wrap:@default-wrap){
+		.flexbox();
+		.orient(column);
+		.wrap(@wrap);
+		.pack(@pack);
+		.align(@align);
 	}
-	.vscrollbox{
-		overflow-x:hidden;
+	.hlayout(@pack:@default-pack,@align:@default-align,@wrap:@default-wrap){
+		.flexbox();
+		.orient(row);
+		.wrap(@wrap);
+		.pack(@pack);
+		.align(@align);
 	}
-	.hscrollbox{
-		overflow-y:hidden;
+	.scroll(){
+		overflow:auto;
 	}
+	
+	
+	/*
+		-----------------------------
+		STILL INCLUDED BUT DEPRICATED
+		-----------------------------
+
+			.box-pack(@x)	 packs box's child elements		start|end|center|justify
+			.box-align(@x)	 aligns box's child elements	start|end|center|baseline|stretch
+		    .box-orient(@x)	 orients box's child elements	horizontal|vertical|inline-axis|block-axis|inherit
+		    .box-flex(@x:1)  takes share of rest space		any integer (default 1)
+
+		    .box(@pack:justify;@align:stretch)
+
+			.hbox			box with horizontally oriented children
+			.vbox			box with vertically oriented children
+
+			.vscrollbox		vertical scroll
+			.hscrollbox		horizontal scroll
+			.scrollbox		scroll both
+
+	*/
+
+
+		// pack the child elements in a box -- start|end|center|justify
+		.box-pack(@x){
+	         -webkit-box-pack : @x;
+	            -moz-box-pack : @x;
+	            -ms-flex-pack : @x;
+	                 box-pack : @x;
+	    }
+
+		// align the child elements in a box -- start|end|center|baseline|stretch
+	    .box-align(@x){
+	        -webkit-box-align : @x;
+	           -moz-box-align : @x;
+	           -ms-flex-align : @x;
+	                box-align : @x;
+	    }
+
+		// set the orientation of child elements in a box -- horizontal|vertical|inline-axis|block-axis|inherit
+	    .box-orient(@x){
+	       -webkit-box-orient : @x;
+	          -moz-box-orient : @x;
+	          -ms-flex-orient : @x;
+	               box-orient : @x;
+	    }
+
+		// take x share of any remaining space -- any integer (default 1)
+	    .box-flex(@x:1){
+	         -webkit-box-flex : @x;
+	            -moz-box-flex : @x;
+	            -ms-flex-flex : @x;
+	                 box-flex : @x;
+	    }
+
+
+
+		// define an element as a CSS3 box with properties like orient, pack, align...
+	    .box(@pack:justify;@align:stretch;@orient){
+
+	        display :         box;
+	        display :    -moz-box;
+	        display : -ms-flexbox;
+	        display : -webkit-box;
+
+	        .box-pack  	( @pack   );
+	        .box-align 	( @align  );
+	        .box-orient ( @orient );
+	    }
+
+
+		.hbox(@pack:justify;@align:stretch){	.box(@pack:@pack;@align:@align;@orient:horizontal)	}
+		.vbox(@pack:justify;@align:stretch){	.box(@pack:@pack;@align:@align;@orient:vertical)	}
+
+		.scrollbox,
+		.vscrollbox,
+		.hscrollbox{
+			.box-flex;
+			overflow-y:scroll;
+			overflow-x:scroll;
+			-webkit-overflow-scrolling:touch;
+		}
+		.vscrollbox{
+			overflow-x:hidden;
+		}
+		.hscrollbox{
+			overflow-y:hidden;
+		}
+	

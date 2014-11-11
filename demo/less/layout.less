@@ -18,29 +18,30 @@
 //--------------Scaffold--------------------------
 	
 	div  { position:relative	}	// help absolute positioning
+	div  { box-sizing:border-box}	// avoid overflows due to padding/borders
 	body { overflow:hidden		}	// disables bounce on mac
 	
 	#nav-layer{		.fixed-layer;
-					.vscrollbox;
+					.vlayout;
+					.scroll;
 					width:@nav-width;
-					max-width:@nav-max-width;
-					}
+					max-width:@nav-max-width; }
 
 	#main-layer{	.fixed-layer;
-					.vbox;
+					.vlayout;
 					width:100%;
-					-webkit-transition: all .3s;
-					}
+					transition: all .3s; }
 
 	#app-nav,
 	#app-nav-left,
-	#app-nav-right{	.hbox;
-					}
-	#app-nav-title{	.layer;
-					.hbox(@pack:center;@align:center);
-					}
+	#app-nav-right{	.hlayout; }
+	#app-nav		{	.pack(space-between);		}
+	#app-nav-left{.layer-left}
+	#app-nav-right{.layer-right}
+	#app-nav{height:50px}
+	#app-nav-title{	.layer; .hlayout(@pack:center;@align:center); }
 	
-	#app-screen{	.box-flex; .vscrollbox }
+	#app-screen{ .grow; .shrink; .vlayout; .scroll; }
 	
 		
 	@media all and (min-width:1000px){
@@ -48,11 +49,68 @@
 		#main-layer	{	left:@nav-max-width;width:auto	}
 
 		#app-nav-left	{	display:none				}
-		#app-nav		{	.box-pack(end)				}
-		#app-nav-title	{	.box-pack(start)			}
+		#app-nav-title	{	.pack(flex-start)			}
 	}
 	
 	
+/*--------------Demo boxes----------------- */
+
+	
+	#demo-container{
+		&:before{ content:'this is a container with a fixed height'; }
+		.vlayout;
+		.scroll;
+		height:350px;
+		
+		&, *{
+			background:rgba(255,0,0,.1);
+			border:1px solid rgba(255,0,0,.2);
+			padding:5px;
+			margin:5px;
+			box-sizing:margin-box;
+		}
+		
+		#demo-header{
+			&:before{ content: 'header' }
+			.vlayout;
+
+			#demo-nav{
+				&:before{ content: 'nav' }
+				.hlayout;
+
+				#primary{
+					&:before{ content: 'primary' }
+					.hlayout;
+					.grow;
+					
+					.demo-nav-item{
+						&:before{ content:'nav item' }
+						display:block;
+					}
+				}
+				#secondary{
+					&:before{ content: 'secondary' }
+					.hlayout;
+				}
+			}
+		}
+		#demo-body{
+
+			.grow;
+			.shrink;
+			.hlayout;
+			.scroll;
+
+			#vdemo{ .vlayout(@align:flex-start); .scroll; }
+			#hdemo{	.hlayout(@pack:center,@align:baseline); .shrink; .grow; }
+
+		}
+		#demo-footer{
+			&:before {content:'footer, without further content'}
+		}
+	}
+
+
 /*--------------Adapted Bootstrap2 Modal-----------------
 
 	- Flexible hight to adapt to content; up to a maximum, where the
@@ -64,10 +122,11 @@
 	
 	.modal{
 		.fixed-layer(@zIndex:1050);
-		.vbox();
+		.vlayout;
 	
 		.modal-body{
-			.box-flex;
+			.grow; .shrink; .scroll;
+			max-height:none;
 		}
 		@media all and (max-width:@threshold){
 			width			: auto;

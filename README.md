@@ -1,6 +1,6 @@
 ## Intro
 
-CSS3-BOX implements the CSS3 box model as a set of LESS mixins.
+CSS3-BOX implements the CSS3 flexbox layout draft as a set of LESS mixins.
 
 Use css3-box to build web applications that don't take "a page", but a screen as the primary layout reference.
 

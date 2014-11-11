@@ -1,11 +1,11 @@
 {
   "name": "css3-box",
-  "version": "1.0.1",
+  "version": "1.1.0",
   "homepage": "https://github.com/philipperutten/css3-box",
   "authors": [
     "Philippe <philippe.rutten@gmail.com>"
   ],
-  "description": "The CSS3 box model implemented as a set of LESS mixins",
+  "description": "The CSS3 flexbox layout draft implemented as a set of LESS mixins",
   "main": "./css3-box-mixins.less",
   "moduleType": [
     "globals"
@@ -13,7 +13,7 @@
   "keywords": [
     "CSS3",
     "box",
-    "model",
+	"flexbox",
     "LESS",
     "mixins",
     "web",
