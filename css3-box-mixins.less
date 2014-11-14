@@ -31,12 +31,12 @@
 	Not covered are the following child-properties:
 	
 		order			-- number	= order number among siblings
-		flex-basis		-- size		= base-size
+		flex-basis		-- size		= base-size of the child
 		align-self		-- auto | flex-start | flex-end | center | stretch | baseline
 		
 
 	Source:		http://css-tricks.com/snippets/css/a-guide-to-flexbox/
-	Compliance: Chrome 29+, Firefox 22+, Safari 6.1+, IE11
+	Compliance: Chrome 29+, Firefox 22+, Safari 6.1+, IE10-11
 	Note:		To date, Safari requires the -webkit- prefix (see mixins)
 	
 	*/
@@ -44,26 +44,66 @@
 	
 	// CONTAINER PROPERTIES 
 	
-	.orient(@x)	{			 flex-direction	: @x;
-					 -webkit-flex-direction	: @x; }
+	.orient(@x)	{	 -webkit-flex-direction	: @x;
+						 -ms-flex-direction	: @x;
+					 		 flex-direction	: @x;
+					 		
+							  .legacy-orient(@x); } // adapter for older versions
 
-	.wrap(@x)	{				  flex-wrap	: @x;
-					 	  -webkit-flex-wrap	: @x; }
+	.wrap(@x)	{		  -webkit-flex-wrap	: @x;
+							  -ms-flex-wrap : @x;
+					 	  		  flex-wrap	: @x; }
 
-	.pack(@x)	{			justify-content	: @x;	
-					-webkit-justify-content	: @x; }
+	.pack(@x)	{	-webkit-justify-content	: @x;	
+							justify-content	: @x;
+							
+								.legacy-pack(@x); } // adapter for older versions
 
-	.align(@x)	{				align-items	: @x;	
-						-webkit-align-items	: @x; }
+	.align(@x)	{		-webkit-align-items	: @x;
+								align-items	: @x;
+								
+						  -webkit-box-align : @x; // older versions
+							 -moz-box-align : @x;
+								  box-align : @x;
+							 -ms-flex-align : @x;
+								
+							  .legacy-align(@x); } // adapter for older versions
+
+.legacy-orient(row){ .legacy-orient(horizontal); }
+.legacy-orient(column){ .legacy-orient(vertical); }
+.legacy-orient(@x){	-webkit-box-orient: @x;
+					   -moz-box-orient: @x; 
+							box-orient: @x; }
+
+.legacy-pack(flex-start){ .legacy-pack(start); }
+.legacy-pack(flex-end){ .legacy-pack(end); }
+.legacy-pack(@x){ -webkit-box-pack: @x;
+					 -moz-box-pack: @x; 
+					 -ms-flex-pack: @x; 
+						  box-pack: @x; }
+
+.legacy-align(flex-start){ .legacy-align(start) }
+.legacy-align(flex-end){ .legacy-align(end) }
+.legacy-align(@x){ -webkit-box-align : @x;
+					  -moz-box-align : @x;
+					  -ms-flex-align : @x;
+						   box-align : @x; }
 
 
 
 	// CHILD PROPERTIES	
 	
-	.shrink(@x:1){				flex-shrink	: @x;
-						-webkit-flex-shrink	: @x; }
-	.grow(@x:1)	{				  flex-grow	: @x;
-						  -webkit-flex-grow	: @x; }
+	.shrink(@x:1)	{	-webkit-flex-shrink	: @x;
+								flex-shrink	: @x; }
+								
+	.grow(@x:1)		{	  -webkit-flex-grow	: @x;
+									   grow	: @x; }
+						
+	.flex(@x:1)		{	   -webkit-box-flex : @x @x auto;
+	    					  -moz-box-flex : @x @x auto;
+							   -webkit-flex : @x @x auto;
+								   -ms-flex : @x @x auto;
+	  								   flex : @x @x auto; }
 
 	.scroll(){ overflow:auto; }
 
@@ -73,13 +113,17 @@
 	@default-pack	: flex-start;
 	@default-align	: stretch;
 	@default-wrap	: nowrap;
-	@default-grow	: 0;
-	@default-shrink	: 0;
+	@default-flex	: 0;
 
-	.flexbox(){	display	: 		  flex;
-				display	: -webkit-flex;
-				> * { .grow(@default-grow); .shrink(@default-shrink); }
-	}	
+	.flexbox(){	display:  -webkit-box; // old
+	  			display: 	 -moz-box; // old
+	  			display:  -ms-flexbox; // tweener
+	  			display: -webkit-flex; // new
+	  			display: 		 flex; // new
+
+				> * { .flex(@default-flex); }
+	}
+
 	.vlayout(@pack:@default-pack,@align:@default-align,@wrap:@default-wrap){
 		.flexbox();
 		.orient(column);

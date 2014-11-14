@@ -11,6 +11,7 @@ Install with [Bower](http://bower.io): `bower install css3-box`
 
 The package includes:
 - A set of LESS mixins that make implementing flexbox dead simple
+- Backward compatibility for older versions still supported in browsers like IE10
 - An additional set of LESS mixins to easily build a layered app
 
 
@@ -25,6 +26,10 @@ Any comments/suggestions/tips are of course more than welcome ;-)
 
 ## Sources
 
+http://dev.w3.org/csswg/css-flexbox/
+
 https://developer.mozilla.org/en-US/docs/Web/Guide/CSS/Flexible_boxes
+
 http://css-tricks.com/using-flexbox/
+
 http://css-tricks.com/snippets/css/a-guide-to-flexbox/
